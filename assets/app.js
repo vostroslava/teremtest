@@ -540,7 +540,7 @@ function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        adjustBodyScroll();
     }
 }
 
@@ -548,6 +548,6 @@ function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.remove('open');
-        document.body.style.overflow = '';
+        adjustBodyScroll();
     }
 }
