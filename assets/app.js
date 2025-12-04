@@ -65,7 +65,14 @@ function adjustBodyScroll() {
     const privacy = document.getElementById('privacyModal');
 
     const anyOpen = [lead, test, privacy].some(m => m && m.classList.contains('open'));
-    document.body.style.overflow = anyOpen ? 'hidden' : '';
+
+    if (anyOpen) {
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-open'); // Prevent iOS bounce
+    } else {
+        document.body.style.overflow = '';
+        document.body.classList.remove('modal-open');
+    }
 }
 
 // Открыть модал заявки

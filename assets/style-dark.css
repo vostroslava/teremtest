@@ -1130,37 +1130,6 @@ button:focus:not(:focus-visible) {
         grid-template-columns: 1fr;
     }
 
-    /* Mobile Navigation */
-    .nav {
-        position: relative;
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 320px;
-        height: 100vh;
-        background: var(--bg-darker);
-        border-left: 1px solid var(--glass-border);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 5rem 2rem 2rem;
-        gap: 1.5rem;
-        z-index: 999;
-        transition: right 0.3s ease;
-        overflow-y: auto;
-    }
-
-    .nav-links.open {
-        right: 0;
-    }
-
-    .nav-links a {
-        width: 100%;
-        font-size: 1.1rem;
-    }
 
     .nav-cta {
         width: 100%;
