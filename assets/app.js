@@ -43,6 +43,18 @@ function closeMobileMenu() {
     btn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
 }
+
+// iOS Fix: Add touch event support for mobile menu
+document.addEventListener('DOMContentLoaded', function () {
+    const overlay = document.querySelector('.nav-overlay');
+    if (overlay) {
+        // Add touchstart event for iOS
+        overlay.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            closeMobileMenu();
+        }, { passive: false });
+    }
+}, { once: true });
 // ===== END MOBILE MENU =====
 
 
