@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Intersection Observer for Fade-in Animations
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.1
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -33,6 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
         section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
         observer.observe(section);
     });
+
+    // Fallback: Ensure everything is visible after 1 second just in case
+    setTimeout(() => {
+        sections.forEach(section => {
+            if (section.style.opacity === '0') {
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            }
+        });
+    }, 1000);
 
     // Hover Tilt Effect for Level Cards (Optional Polish)
     const cards = document.querySelectorAll('.level-card');
@@ -73,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Countdown Timer
     const countdownText = document.getElementById('eventCountdownText');
     const countdownFill = document.getElementById('eventCountdownFill');
-    
+
     if (countdownText && countdownFill) {
         const targetDate = new Date('2025-12-18T10:00:00').getTime();
         const startDate = new Date('2025-11-01T00:00:00').getTime(); // Assumed campaign start
@@ -99,12 +108,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const timePassed = now - startDate;
             let percentage = (timePassed / totalDuration) * 100;
             percentage = Math.max(0, Math.min(100, percentage));
-            
+
             countdownFill.style.width = `${percentage}%`;
         }
 
         updateCountdown();
         setInterval(updateCountdown, 60000); // Update every minute
+    }
+    // Lead Form Submission
+    const leadForm = document.getElementById('leadForm');
+    if (leadForm) {
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you would typically send the form data to a server
+            console.log("Form submitted");
+
+            closeLeadModal();
+
+            // Open Test Modal
+            const testModal = document.getElementById('testModal');
+            if (testModal) {
+                testModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+
+                // Start the test (function from test.js)
+                if (typeof startTeremokTest === 'function') {
+                    startTeremokTest();
+                }
+            }
+        });
     }
 });
 
@@ -113,7 +145,7 @@ function toggleMobileMenu() {
     const navLinks = document.querySelector('.nav-links');
     const overlay = document.querySelector('.nav-overlay');
     const btn = document.querySelector('.mobile-menu-btn');
-    
+
     if (navLinks.classList.contains('active')) {
         closeMobileMenu();
     } else {
@@ -128,7 +160,7 @@ function closeMobileMenu() {
     const navLinks = document.querySelector('.nav-links');
     const overlay = document.querySelector('.nav-overlay');
     const btn = document.querySelector('.mobile-menu-btn');
-    
+
     navLinks.classList.remove('active');
     overlay.classList.remove('active');
     btn.setAttribute('aria-expanded', 'false');
@@ -141,7 +173,7 @@ function openLeadModal(type) {
     if (modal) {
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
-        
+
         // You could handle 'type' here to customize the modal if needed
         // e.g., select a specific option in the dropdown
     }
@@ -161,7 +193,7 @@ function openPrivacyModal() {
 }
 
 function closeTestModal() {
-     const modal = document.getElementById('testModal');
+    const modal = document.getElementById('testModal');
     if (modal) {
         modal.classList.remove('open');
         document.body.style.overflow = '';

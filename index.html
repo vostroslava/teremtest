@@ -14,7 +14,7 @@
     <meta property="og:title" content="Теремок — мотивационная модель для команды">
     <meta property="og:description"
         content="Живой офлайн-практикум в Минске. Узнайте, кто в вашей команде: Птицы, Хомяки, Лисы или Профи.">
-    <meta property="og:image" content="assets/teremok-tower-v2.jpg">
+    <meta property="og:image" content="assets/teremok-new.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -22,9 +22,10 @@
     <meta property="twitter:title" content="Теремок — мотивационная модель для команды">
     <meta property="twitter:description"
         content="Живой офлайн-практикум в Минске. Узнайте, кто в вашей команде: Птицы, Хомяки, Лисы или Профи.">
-    <meta property="twitter:image" content="assets/teremok-tower-v2.jpg">
+    <meta property="twitter:image" content="assets/teremok-new.jpg">
 
-    <link rel="stylesheet" href="assets/style-dark.css">
+    <link rel="stylesheet" href="assets/style-dark.css">`r`n
+    <link rel="stylesheet" href="assets/teremok-styled.css">
 </head>
 
 <body>
@@ -111,56 +112,9 @@
                         <div class="hero-visual-svg" data-animate>
                             <div class="teremok-container">
                                 <div class="teremok-wrapper">
-                                    <img src="assets/teremok-tower-v2.jpg" alt="Teremok Tower" class="teremok-image">
-
-                                    <!-- Interactive Zones -->
+                                    <img src="assets/teremok-new.jpg" alt="Teremok Tower" class="teremok-image">
 
 
-
-                                    <!-- Level 4: Profi (Top Window) -->
-                                    <div class="teremok-zone zone-profi" data-modal="modal-profi" role="button"
-                                        tabindex="0">
-                                        <div class="zone-content">
-                                            <span class="zone-icon">🦁</span>
-                                            <span class="zone-label">Профи</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Level 3: Fox (Middle Window) -->
-                                    <div class="teremok-zone zone-fox" data-modal="modal-fox" role="button"
-                                        tabindex="0">
-                                        <div class="zone-content">
-                                            <span class="zone-icon">🦊</span>
-                                            <span class="zone-label">Лиса</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Level 2: Hamster (Lower Window) -->
-                                    <div class="teremok-zone zone-hamster" data-modal="modal-hamster" role="button"
-                                        tabindex="0">
-                                        <div class="zone-content">
-                                            <span class="zone-icon">🐹</span>
-                                            <span class="zone-label">Хомяк</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Level 1: Bird (Bottom Left) -->
-                                    <div class="teremok-zone zone-bird" data-modal="modal-bird" role="button"
-                                        tabindex="0">
-                                        <div class="zone-content">
-                                            <span class="zone-icon">🐦</span>
-                                            <span class="zone-label">Птица</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Level 1: Toxic (Bottom Right) -->
-                                    <div class="teremok-zone zone-rat" data-modal="modal-rat" role="button"
-                                        tabindex="0">
-                                        <div class="zone-content">
-                                            <span class="zone-icon">🐀</span>
-                                            <span class="zone-label">Токсик</span>
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
@@ -935,9 +889,241 @@
             <p class="modal-subtitle">Движущая сила: Смысл и миссия</p>
 
             <div class="modal-section">
+                ```
+            </div>
+
+            <div class="field-group">
+                <label for="phone">Телефон <span class="required">*</span></label>
+                <input class="input" type="tel" id="phone" name="phone" placeholder="+375 (__) ___-__-__" required>
+                <div class="field-hint">
+                    Номер нужен, чтобы связаться с вами в удобном мессенджере и подтвердить офлайн-участие.
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label for="messenger">Удобный мессенджер</label>
+                <select class="select" id="messenger" name="messenger">
+                    <option value="" disabled selected>Выберите вариант</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="viber">Viber</option>
+                    <option value="other">Другое</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label for="email">E-mail</label>
+                <input class="input" type="email" id="email" name="email"
+                    placeholder="при необходимости отправки деталей по участию">
+            </div>
+
+            <div class="field-group">
+                <label for="request">Ваш запрос (кратко)</label>
+                <textarea id="request" name="request"
+                    placeholder="С чем хотите поработать на «Теремке» — команда, вовлечённость, подбор, управленческие решения и т.п."></textarea>
+            </div>
+
+            <div class="field-group">
+                <label class="consent-label">
+                    <input type="checkbox" id="privacyConsent" required>
+                    <span>
+                        Я ознакомлен(а) и согласен(на) с
+                        <button type="button" class="link-button" onclick="openPrivacyModal()">Политикой
+                            конфиденциальности</button>.
+                    </span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary btn-full">
+                Отправить заявку и перейти к мини-тесту
+            </button>
+
+            <p class="form-note">
+                Мы не рассылаем спам и не передаём контакты третьим лицам.
+                Свяжемся только по поводу офлайн-программы «Теремок».
+            </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно с мини-тестом -->
+    <div class="modal-backdrop" id="testModal" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeTestModal()"></div>
+
+        <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="testModalTitle">
+            <button class="modal-close" type="button" onclick="closeTestModal()">×</button>
+
+            <h2 id="testModalTitle">Мини-тест по одному сотруднику</h2>
+            <p class="modal-subtitle">
+                Выберите одного конкретного сотрудника и отвечайте, как он ведёт себя чаще всего.
+                Это упрощённый мини-тест: по результатам вы увидите, к какому типажу «Теремка» он ближе.
+                На офлайн-программе мы работаем уже со всей вашей командой.
+            </p>
+
+            <div id="testContainer">
+                <div class="test-progress">
+                    <div class="test-progress-bar" id="testProgressBar"></div>
+                </div>
+                <div id="testQuestionCard" class="test-question-card">
+                    <!-- Dynamic Question Content will be injected here -->
+                </div>
+            </div>
+
+            <div id="testResultContainer" style="display: none;">
+                <!-- Dynamic Result Content will be injected here -->
+            </div>
+
+            <div id="testTelegramBlock" class="telegram-card" style="display:none; margin-top: 20px;">
+                <div class="telegram-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white">
+                        <path
+                            d="M21.5 4.2c.3-.97-.58-1.84-1.54-1.5L3.3 9.1c-.71.26-.77 1.24-.1 1.6l4.5 2.34 2.1 4.77c.3.68 1.26.71 1.6.05l2.02-3.82 4.24 2.2c.83.43 1.83-.03 2.06-.93l1.78-7.91Z" />
+                    </svg>
+                </div>
+                <div class="telegram-content">
+                    <div class="telegram-title">Посмотрите видео-разбор</div>
+                    <p>Мы подготовили видео, где подробно разбираем этот типаж. Напишите менеджеру слово "Разбор".</p>
+                    <a class="telegram-button" href="https://t.me/stalkermedia1" target="_blank">Связаться с
+                        менеджером</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно с политикой конфиденциальности -->
+    <div class="modal-backdrop" id="privacyModal" aria-hidden="true">
+        <div class="modal-overlay" onclick="closePrivacyModal()"></div>
+
+        <div class="modal-window policy-window" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
+            <button class="modal-close" type="button" onclick="closePrivacyModal()">×</button>
+
+            <h2 id="privacyModalTitle">Политика конфиденциальности</h2>
+
+            <iframe class="policy-frame" src="privacy-policy.html" title="Политика конфиденциальности"></iframe>
+        </div>
+    </div>
+
+
+
+    <!-- Модальные окна для типажей сотрудников -->
+
+    <!-- Птица -->
+    <div class="modal-backdrop" id="modal-bird" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeModal('modal-bird')"></div>
+        <div class="modal-window" role="dialog" aria-modal="true">
+            <button class="modal-close" type="button" onclick="closeModal('modal-bird')">×</button>
+
+            <h2>🐦 Птица</h2>
+            <p class="modal-subtitle">Движущая сила: Страх наказания</p>
+
+            <div class="modal-section">
+                <h3>Характеристика</h3>
+                <p>Работает только под жёстким контролем. Без дедлайнов и напоминаний «забывает» о задачах. Избегает
+                    ответственности и инициативы. При ослаблении контроля «проседает».</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Хомяк -->
+    <div class="modal-backdrop" id="modal-hamster" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeModal('modal-hamster')"></div>
+        <div class="modal-window" role="dialog" aria-modal="true">
+            <button class="modal-close" type="button" onclick="closeModal('modal-hamster')">×</button>
+
+            <h2>🐹 Хомяк</h2>
+            <p class="modal-subtitle">Движущая сила: Личная выгода</p>
+
+            <div class="modal-section">
+                <h3>Характеристика</h3>
+                <p>Рассматривает работу исключительно как источник ресурсов. Лоялен не компании, а своему кошельку.
+                    Работает ровно столько, сколько оплачивается — не больше.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Лиса -->
+    <div class="modal-backdrop" id="modal-fox" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeModal('modal-fox')"></div>
+        <div class="modal-window" role="dialog" aria-modal="true">
+            <button class="modal-close" type="button" onclick="closeModal('modal-fox')">×</button>
+
+            <h2>🦊 Лиса</h2>
+            <p class="modal-subtitle">Движущая сила: Власть и признание</p>
+
+            <div class="modal-section">
+                <h3>Характеристика</h3>
+                <p>Ориентирован на власть, влияние и статус. Мастер создавать видимость работы и плести интриги. Хорошо
+                    выглядит на совещаниях, но реальный вклад нестабилен.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Профи -->
+    <div class="modal-backdrop" id="modal-profi" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeModal('modal-profi')"></div>
+        <div class="modal-window" role="dialog" aria-modal="true">
+            <button class="modal-close" type="button" onclick="closeModal('modal-profi')">×</button>
+
+            <h2>🦁 Профи</h2>
+            <p class="modal-subtitle">Движущая сила: Профессионализм</p>
+
+            <div class="modal-section">
+                <h3>Характеристика</h3>
+                <p>Сотрудник, который болеет за дело. Берет ответственность, держит качество, ищет решения. Сам следит
+                    за сроками и деталями. Стабильно держит уровень.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Лидер -->
+    <div class="modal-backdrop" id="modal-leader" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeModal('modal-leader')"></div>
+        <div class="modal-window" role="dialog" aria-modal="true">
+            <button class="modal-close" type="button" onclick="closeModal('modal-leader')">×</button>
+
+            <h2>🦅 Лидер</h2>
+            <p class="modal-subtitle">Движущая сила: Смысл и миссия</p>
+
+            <div class="modal-section">
                 <h3>Характеристика</h3>
                 <p>Развивает бизнес как свой. Ведет за собой команду, генерирует прорывные решения. Вдохновлен идеей и
                     миссией, а не только деньгами или статусом.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Волк -->
+    <div class="modal-backdrop" id="modal-wolf" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeModal('modal-wolf')"></div>
+        <div class="modal-window" role="dialog" aria-modal="true">
+            <button class="modal-close" type="button" onclick="closeModal('modal-wolf')">×</button>
+
+            <h2>🐺 Волк</h2>
+            <p class="modal-subtitle">Движущая сила: Контроль и доминирование</p>
+
+            <div class="modal-section">
+                <h3>Характеристика</h3>
+                <p>Собирает вокруг себя «стаю» последователей, продвигает собственные цели под видом общих интересов.
+                    Диктует свои условия, игнорирует корпоративные правила. Может создавать параллельную систему власти
+                    в компании.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Медведь -->
+    <div class="modal-backdrop" id="modal-bear" aria-hidden="true">
+        <div class="modal-overlay" onclick="closeModal('modal-bear')"></div>
+        <div class="modal-window" role="dialog" aria-modal="true">
+            <button class="modal-close" type="button" onclick="closeModal('modal-bear')">×</button>
+
+            <h2>🐻 Медведь</h2>
+            <p class="modal-subtitle">Движущая сила: Собственная значимость</p>
+
+            <div class="modal-section">
+                <h3>Характеристика</h3>
+                <p>Опытный специалист, который считает себя исключением из правил. Игнорирует нововведения и
+                    корпоративные стандарты, опираясь на свой опыт. Неуправляемый, но обладает ценными компетенциями.
+                    Работает «как привык», а не как требуется.</p>
             </div>
         </div>
     </div>
@@ -946,3 +1132,4 @@
 </body>
 
 </html>
+```
