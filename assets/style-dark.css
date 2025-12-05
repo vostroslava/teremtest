@@ -1256,7 +1256,7 @@ button:focus:not(:focus-visible) {
         border-bottom: none;
     }
 
-    /* Mobile Overlay - под меню */
+    /* Mobile Overlay - ТОЛЬКО визуальное затемнение, НЕ блокирует клики */
     .nav-overlay {
         position: fixed;
         top: 0;
@@ -1266,13 +1266,14 @@ button:focus:not(:focus-visible) {
         background: rgba(0, 0, 0, 0.6);
         z-index: 997;
         opacity: 0;
-        pointer-events: none;
+        pointer-events: none !important;
+        /* ВСЕГДА none - не блокирует клики */
         transition: opacity 0.3s ease;
     }
 
     .nav-overlay.open {
         opacity: 1;
-        pointer-events: auto;
+        /* pointer-events остаётся none! */
     }
 
     h1 {
