@@ -44,7 +44,19 @@ function closeMobileMenu() {
     document.body.style.overflow = '';
 }
 
-// Overlay теперь pointer-events: none, обработчики не нужны
+// Click outside menu to close
+document.addEventListener('click', function (e) {
+    const navLinks = document.querySelector('.nav-links');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+
+    // Если меню открыто И клик был не по меню и не по кнопке
+    if (navLinks && navLinks.classList.contains('open')) {
+        if (!navLinks.contains(e.target) && !menuBtn.contains(e.target)) {
+            closeMobileMenu();
+        }
+    }
+});
+
 // ===== END MOBILE MENU =====
 
 
