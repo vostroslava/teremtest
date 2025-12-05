@@ -9,17 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                // Сначала скролл
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                // 1. Сначала закрываем меню
+                if (typeof closeMobileMenu === 'function') {
+                    closeMobileMenu();
+                }
 
-                // Потом закрываем меню после завершения скролла
+                // 2. Потом через задержку делаем скролл
                 setTimeout(() => {
-                    if (typeof closeMobileMenu === 'function') {
-                        closeMobileMenu();
-                    }
-                }, 800); // Задержка для завершения анимации скролла
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }, 400); // Задержка чтобы меню успело закрыться
             }
         });
     });
