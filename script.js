@@ -140,34 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Mobile Menu Functions
-function toggleMobileMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    const overlay = document.querySelector('.nav-overlay');
-    const btn = document.querySelector('.mobile-menu-btn');
-
-    if (navLinks.classList.contains('open')) {
-        closeMobileMenu();
-    } else {
-        navLinks.classList.add('open');
-        if (overlay) overlay.classList.add('open');
-        btn.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeMobileMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    const overlay = document.querySelector('.nav-overlay');
-    const btn = document.querySelector('.mobile-menu-btn');
-
-    navLinks.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-}
+// Mobile Menu Functions are defined in app.js
 
 // Global Modal Functions for Buttons
 function openLeadModal(type) {
