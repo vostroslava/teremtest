@@ -619,12 +619,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Close mobile menu when clicking on navigation links
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', function () {
-            closeMobileMenu();
-        });
-    });
+    // Mobile menu close on link click is handled in script.js
 });
 
 // Generic Modal Functions
