@@ -3,30 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            e.stopPropagation(); // Не даём клику провалиться на overlay
-
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                // Закрываем меню
-                const navLinks = document.querySelector('.nav-links');
-                const btn = document.querySelector('.mobile-menu-btn');
-                if (navLinks && navLinks.classList.contains('open')) {
-                    navLinks.classList.remove('open');
-                    if (btn) btn.classList.remove('open');
-                    document.body.style.overflow = '';
-                }
-
-                // Небольшая задержка, потом скролл
+                // Scroll first
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Then close menu after scroll animation
                 setTimeout(() => {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }, 350);
+                    if (typeof closeMobileMenu === 'function') {
+                        closeMobileMenu();
+                    }
+                }, 600); // delay enough for smooth scroll
             }
         });
     });
+
 
     // Intersection Observer for Fade-in Animations
     const observerOptions = {
