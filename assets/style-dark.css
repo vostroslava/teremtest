@@ -1909,23 +1909,39 @@ button:focus:not(:focus-visible) {
 
 /* Мобильная адаптация */
 @media (max-width: 768px) {
+    .video-presentation-block {
+        margin: 2rem auto;
+    }
+
     .video-presenter {
         padding: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .avatar-wrapper {
+        width: 140px;
+        height: 140px;
     }
 
     .presenter-avatar {
-        width: 100px;
-        height: 100px;
+        width: 140px;
+        height: 140px;
     }
 
     .presenter-cta {
         padding: 0.75rem 1.25rem;
         flex-direction: column;
         text-align: center;
+        gap: 0.5rem;
     }
 
     .cta-text {
-        font-size: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .cta-icon {
+        font-size: 1.2rem;
     }
 
     .video-modal-backdrop {
@@ -1941,5 +1957,9 @@ button:focus:not(:focus-visible) {
 
     .video-modal-content::before {
         inset: -15px;
+    }
+
+    .pulse-ring {
+        inset: -8px;
     }
 }
