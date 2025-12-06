@@ -621,7 +621,41 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Mobile menu close on link click is handled in script.js
+    // Mobile menu close on link click (Migrated from script.js)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // 1. Close menu first using app.js function
+                closeMobileMenu();
+
+                // 2. Wait and scroll (smooth)
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }, 400);
+            }
+        });
+    });
+
+    // Hover Tilt Effect for Level Cards (Migrated from script.js)
+    const cards = document.querySelectorAll('.level-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // We need to check if the CSS actually uses these variables, 
+            // but setting them is safe and restores the intended effect.
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
+        });
+    });
 });
 
 // Generic Modal Functions
@@ -640,3 +674,89 @@ function closeModal(modalId) {
         adjustBodyScroll();
     }
 }
+
+// ===== HAMSTER INLINE VIDEO =====
+let hamsterVideoPlaying = false;
+
+function toggleHamsterVideo() {
+    const avatar = document.querySelector('.presenter-avatar');
+    const video = document.getElementById('hamsterVideoPlayer');
+    const ctaText = document.getElementById('ctaText');
+    const ctaIcon = document.querySelector('.cta-icon');
+
+    if (!video || !avatar) return;
+
+    if (hamsterVideoPlaying) {
+        // Остановить видео
+        stopHamsterVideo();
+    } else {
+        // Начать воспроизведение
+        playHamsterVideoInline();
+    }
+}
+
+function playHamsterVideoInline() {
+    const avatar = document.querySelector('.presenter-avatar');
+    const video = document.getElementById('hamsterVideoPlayer');
+    const ctaText = document.getElementById('ctaText');
+    const ctaIcon = document.querySelector('.cta-icon');
+
+    if (!video || !avatar) return;
+
+    // Активировать видео
+    avatar.classList.add('video-active');
+    video.currentTime = 0;
+
+    video.play().then(() => {
+        hamsterVideoPlaying = true;
+        if (ctaText) ctaText.textContent = 'Нажми, чтобы остановить';
+        if (ctaIcon) ctaIcon.textContent = '⏸️';
+    }).catch(err => {
+        console.log('Autoplay prevented:', err);
+        // Всё равно показываем видео, пользователь нажмёт play
+        hamsterVideoPlaying = true;
+        if (ctaText) ctaText.textContent = 'Нажми для паузы';
+        if (ctaIcon) ctaIcon.textContent = '⏸️';
+    });
+
+    // Когда видео закончится — вернуть картинку
+    video.onended = function () {
+        stopHamsterVideo();
+    };
+}
+
+function stopHamsterVideo() {
+    const avatar = document.querySelector('.presenter-avatar');
+    const video = document.getElementById('hamsterVideoPlayer');
+    const ctaText = document.getElementById('ctaText');
+    const ctaIcon = document.querySelector('.cta-icon');
+
+    if (video) {
+        video.pause();
+    }
+
+    if (avatar) {
+        avatar.classList.remove('video-active');
+    }
+
+    hamsterVideoPlaying = false;
+
+    if (ctaText) ctaText.textContent = 'Нажми на меня — и я расскажу про себя!';
+    if (ctaIcon) ctaIcon.textContent = '👆';
+}
+
+// Остановить видео при скролле за пределы блока
+document.addEventListener('scroll', function () {
+    if (!hamsterVideoPlaying) return;
+
+    const block = document.getElementById('hamsterVideoBlock');
+    if (!block) return;
+
+    const rect = block.getBoundingClientRect();
+    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+    if (!isVisible) {
+        stopHamsterVideo();
+    }
+});
+// ===== END HAMSTER INLINE VIDEO =====

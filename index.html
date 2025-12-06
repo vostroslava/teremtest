@@ -143,6 +143,33 @@
                             Не абстрактная «мотивация», а живые типажи с понятным поведением.
                         </p>
                     </div>
+
+                    <!-- Видео-презентация Хомяка (inline в кружочке) -->
+                    <div class="video-presentation-block" id="hamsterVideoBlock" data-animate>
+                        <div class="video-presenter" id="hamsterPresenter">
+                            <div class="presenter-avatar" onclick="toggleHamsterVideo()">
+                                <!-- Статичная картинка -->
+                                <img src="assets/character-hamster.png" alt="Хомяк" id="hamsterImage"
+                                    class="avatar-image">
+                                <!-- Видео (скрыто изначально) -->
+                                <video id="hamsterVideoPlayer" class="avatar-video" playsinline>
+                                    <source src="video/xoma.mp4" type="video/mp4">
+                                </video>
+                                <div class="pulse-ring" id="pulseRing1"></div>
+                                <div class="pulse-ring delay" id="pulseRing2"></div>
+                                <!-- Индикатор воспроизведения -->
+                                <div class="play-indicator" id="playIndicator">
+                                    <span>▶</span>
+                                </div>
+                            </div>
+                            <div class="presenter-cta" id="hamsterCta">
+                                <span class="cta-icon">👆</span>
+                                <span class="cta-text" id="ctaText">Нажми на меня — и я расскажу про себя!</span>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="levels-grid">
                         <!-- Птицы -->
                         <div class="level-card bird-level" data-modal="modal-bird" data-animate tabindex="0"
@@ -1178,8 +1205,8 @@
         </div>
     </div>
 
+    <script src="assets/test.js"></script>
     <script src="assets/app.js"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>
