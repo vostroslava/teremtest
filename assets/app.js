@@ -679,10 +679,9 @@ function closeModal(modalId) {
 let hamsterVideoPlaying = false;
 
 function toggleHamsterVideo() {
+    const wrapper = document.querySelector('.avatar-wrapper');
     const avatar = document.querySelector('.presenter-avatar');
     const video = document.getElementById('hamsterVideoPlayer');
-    const ctaText = document.getElementById('ctaText');
-    const ctaIcon = document.querySelector('.cta-icon');
 
     if (!video || !avatar) return;
 
@@ -696,6 +695,7 @@ function toggleHamsterVideo() {
 }
 
 function playHamsterVideoInline() {
+    const wrapper = document.querySelector('.avatar-wrapper');
     const avatar = document.querySelector('.presenter-avatar');
     const video = document.getElementById('hamsterVideoPlayer');
     const ctaText = document.getElementById('ctaText');
@@ -703,7 +703,8 @@ function playHamsterVideoInline() {
 
     if (!video || !avatar) return;
 
-    // Активировать видео
+    // Активировать видео (добавляем класс на оба элемента)
+    if (wrapper) wrapper.classList.add('video-active');
     avatar.classList.add('video-active');
     video.currentTime = 0;
 
@@ -726,6 +727,7 @@ function playHamsterVideoInline() {
 }
 
 function stopHamsterVideo() {
+    const wrapper = document.querySelector('.avatar-wrapper');
     const avatar = document.querySelector('.presenter-avatar');
     const video = document.getElementById('hamsterVideoPlayer');
     const ctaText = document.getElementById('ctaText');
@@ -735,6 +737,9 @@ function stopHamsterVideo() {
         video.pause();
     }
 
+    if (wrapper) {
+        wrapper.classList.remove('video-active');
+    }
     if (avatar) {
         avatar.classList.remove('video-active');
     }

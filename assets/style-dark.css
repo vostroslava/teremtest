@@ -1519,11 +1519,20 @@ button:focus:not(:focus-visible) {
     opacity: 1;
 }
 
+/* Обёртка для аватара с пульсирующими кольцами */
+.avatar-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+}
+
 .presenter-avatar {
     position: relative;
     width: 180px;
     height: 180px;
     cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 /* Статичная картинка */
@@ -1627,7 +1636,7 @@ button:focus:not(:focus-visible) {
 }
 
 /* Скрыть пульс при воспроизведении */
-.presenter-avatar.video-active .pulse-ring {
+.avatar-wrapper.video-active .pulse-ring {
     animation: none;
     opacity: 0;
 }

@@ -147,19 +147,23 @@
                     <!-- Видео-презентация Хомяка (inline в кружочке) -->
                     <div class="video-presentation-block" id="hamsterVideoBlock" data-animate>
                         <div class="video-presenter" id="hamsterPresenter">
-                            <div class="presenter-avatar" onclick="toggleHamsterVideo()">
-                                <!-- Статичная картинка -->
-                                <img src="assets/character-hamster.png" alt="Хомяк" id="hamsterImage"
-                                    class="avatar-image">
-                                <!-- Видео (скрыто изначально) -->
-                                <video id="hamsterVideoPlayer" class="avatar-video" playsinline>
-                                    <source src="video/xoma.mp4" type="video/mp4">
-                                </video>
+                            <div class="avatar-wrapper">
+                                <!-- Пульсирующие кольца (вне контейнера с overflow) -->
                                 <div class="pulse-ring" id="pulseRing1"></div>
                                 <div class="pulse-ring delay" id="pulseRing2"></div>
-                                <!-- Индикатор воспроизведения -->
-                                <div class="play-indicator" id="playIndicator">
-                                    <span>▶</span>
+
+                                <div class="presenter-avatar" onclick="toggleHamsterVideo()">
+                                    <!-- Статичная картинка -->
+                                    <img src="assets/character-hamster.png" alt="Хомяк" id="hamsterImage"
+                                        class="avatar-image">
+                                    <!-- Видео (скрыто изначально) -->
+                                    <video id="hamsterVideoPlayer" class="avatar-video" playsinline>
+                                        <source src="video/xoma.mp4" type="video/mp4">
+                                    </video>
+                                    <!-- Индикатор воспроизведения -->
+                                    <div class="play-indicator" id="playIndicator">
+                                        <span>▶</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="presenter-cta" id="hamsterCta">
