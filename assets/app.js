@@ -389,15 +389,18 @@ function getResultHTML(type) {
 function sendToGoogleSheet(mainType, types, resultText) {
     const fd = new FormData();
 
-    if (leadData) {
-        fd.append('name', leadData.name || '');
-        fd.append('role', leadData.role || '');
-        fd.append('company', leadData.company || '');
-        fd.append('team_size', leadData.team_size || '');
-        fd.append('phone', leadData.phone || '');
-        fd.append('messenger', leadData.messenger || '');
-        fd.append('email', leadData.email || '');
-        fd.append('request', leadData.request || '');
+    // Fix: Access global variable set by integration.js if local is null
+    const data = window.leadData || leadData;
+
+    if (data) {
+        fd.append('name', data.name || '');
+        fd.append('role', data.role || '');
+        fd.append('company', data.company || '');
+        fd.append('team_size', data.team_size || '');
+        fd.append('phone', data.phone || '');
+        fd.append('messenger', data.messenger || '');
+        fd.append('email', data.email || '');
+        fd.append('request', data.request || '');
     } else {
         fd.append('name', '');
         fd.append('role', '');

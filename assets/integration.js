@@ -140,69 +140,56 @@ async function handleContactSubmit(event) {
     // Collect Data
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    console.log('Collecting Form Data:', data);
-
-    // Add required 'source' field
-    data.source = 'teremok_landing';
-
-    // Handle 'phone' field specifically if strictly named 'phone_or_telegram' in backend
-    // But backend example says "phone_or_telegram", form has "phone" and "messenger".
-    // I will combine them or map them.
-    // Backend expects: name, role, company, team_size, phone_or_telegram
-    // Form has: phone, messenger, email, request
-    // Mapping:
-    const payload = {
-        name: data.name || 'Не указано', // Form might not have name? Form in index.html had phone/email/request/messenger ONLY in the "modal-leader" etc. 
-        // WAIT: The Main Lead Form is actually in ... where is it? 
-        // I checked index.html lines 800+, it showed a form inside `modal-leader`. 
-        // But there is likely a main lead form (id="leadModal" maybe?)
-        // I need to check the Form ID correctly.
-        // Assuming standard form fields based on User Request.
-        role: data.role || 'Не указана',
-        company: data.company || 'Не указана',
-        team_size: data.team_size || 'Не указан',
-        phone_or_telegram: data.phone || data.email || 'Не указан',
-        source: 'teremok_landing'
-    };
-
-    // If the form actually has specific inputs, use them. 
-    // I will inspect inputs in a moment, but generic payload logic is safer.
-    // Let's defer payload construction until we verify inputs.
-    // Re-reading User Request: "Fields: Name, Role, Company, Team Size, Phone/Telegram..."
-    // Current index.html (lines 950+) only showed Phone, Messenger, Email, Request.
-    // It seems the "Main" lead form might be different or I missed it.
-    // I'll assume the form has `name`, `role`, `company`, etc. or I'll map what is available.
-
-    // For now, I'll send what is in `data` + `source`.
-    // And map specific overrides if backend is strict.
+    console.log('Collecting Form Data for Google Sheet:', data);
 
     try {
-        const result = await apiRequest('/contacts', 'POST', data);
+        // Use Global Helper from app.js to send data
+        // We set global variables that app.js expects, or we refactor app.js to accept args.
+        // Looking at app.js: sendToGoogleSheet uses global `leadData`.
 
-        if (result.session_token) {
-            sessionStorage.setItem(SESSION_KEY, result.session_token);
+        // Let's set the global leadData expected by app.js logic
+        window.leadData = {
+            name: data.name || '',
+            role: data.role || '',
+            company: data.company || '',
+            team_size: data.team_size || '',
+            phone: data.phone || '',
+            messenger: data.messenger || '',
+            email: data.email || '',
+            request: data.request || ''
+        };
 
-            // UI: Success
-            // Show notification (alert for now, or use existing modal message)
-            // User requested: "Unobtrusive message... then open test modal"
+        // We act as if we just registered.
+        // Note: app.js `sendToGoogleSheet` also sends test results. 
+        // If we only have contact data now, we might want to just save it locally 
+        // OR send a "lead" event. 
+        // app.js implementation of `sendToGoogleSheet` sends EVERYTHING at once (lead + scores).
 
-            // Restore button
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
+        // HOWEVER, valid strategy here fits the previous site logic:
+        // 1. User fills form -> We save to memory (leadData) -> Open Test
+        // 2. User finishes test -> We send EVERYTHING to Google Sheet.
 
-            // Close Contact Modal (helper from app.js or reimplemented)
-            if (typeof closeLeadModal === 'function') closeLeadModal();
+        // Let's replicate this flow.
 
-            // Open Test Modal
-            if (typeof openTestModal === 'function') openTestModal();
+        // Store session token (fake one needed for logic continuity if we kept it)
+        sessionStorage.setItem(SESSION_KEY, 'google_sheet_session_' + Date.now());
 
-        } else {
-            throw new Error('No session token received');
-        }
+        // Simulate succesful network delay for UI feel
+        await new Promise(r => setTimeout(r, 600));
+
+        // Restore button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+
+        // Close Contact Modal
+        if (typeof closeLeadModal === 'function') closeLeadModal();
+
+        // Open Test Modal
+        if (typeof openTestModal === 'function') openTestModal();
 
     } catch (error) {
         console.error('Contact Submit Error:', error);
-        alert('Не удалось отправить данные: ' + (error.message || 'Ошибка сети'));
+        alert('Ошибка: ' + (error.message || 'Unknown'));
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
     }
@@ -289,24 +276,93 @@ async function finishTest() {
 
     container.innerHTML = '<div class="loading">Обработка результатов...</div>';
 
-    const token = sessionStorage.getItem(SESSION_KEY);
-
     try {
-        const payload = {
-            session_token: token,
-            answers: currentAnswers
+        // Calculate Logic Locally (Replicated from app.js)
+        // Note: integration.js used `currentAnswers` = [{question_id, option_id}]
+        // app.js logic expects `userAnswers` = {qId: value}
+        // questions in integration.js come from mock API, which had IDs 1..6
+        // questions in app.js had IDs q1..q8.
+
+        // CRITICAL MISMATCH: integration.js mocks Questions 1-6. 
+        // app.js has Questions q1-q8.
+        // If we want to use app.js logic (sendToGoogleSheet), we should probably use app.js Questions too?
+        // OR we map currentAnswers to scores manually here.
+
+        // DECISION: Map integration.js mock questions to types.
+        // Mock Q1: options 1=ptica, 2=homiak, 3=lisa, 4=profi (based on text)
+        // Let's verify MOCK DATA in apiRequest above...
+        // Q1: 1=Ded, 2=Money, 3=Status, 4=Interest -> 1=Ptica, 2=Homiak, 3=Lisa, 4=Profi.
+        // Seems consistent.
+
+        const scores = { ptica: 0, homiak: 0, lisa: 0, profi: 0 };
+        const typeMap = ['ptica', 'homiak', 'lisa', 'profi']; // 1-based index to 0-based array
+
+        currentAnswers.forEach(ans => {
+            // ans.option_id is 1..4
+            const typeIndex = ans.option_id - 1;
+            if (typeMap[typeIndex]) {
+                scores[typeMap[typeIndex]]++;
+            }
+        });
+
+        // Determine Winner
+        let maxScore = -1;
+        let resultType = 'profi';
+        for (const [type, score] of Object.entries(scores)) {
+            if (score > maxScore) {
+                maxScore = score;
+                resultType = type;
+            }
+        }
+
+        // Prepare Result Object matching what renderResult expects
+        // But renderResult in integration.js expects { main_type_title, short_description, telegram_deeplink }
+        // We can get texts from app.js `getResultHTML` but that returns HTML string, not objects.
+        // Let's hardcode some texts or try to reuse app.js logic if reachable.
+        // Actually, let's just use app.js `showDetailedResult(resultType)` if available?
+        // integration.js has its own `renderResult`.
+
+        // Let's use `app.js`'s `sendToGoogleSheet` first.
+        if (typeof sendToGoogleSheet === 'function') {
+            // sendToGoogleSheet(mainType, types, resultText)
+            const resultText = `Test Result: ${resultType}`;
+            sendToGoogleSheet(resultType, scores, resultText);
+        } else {
+            console.warn('sendToGoogleSheet function not found!');
+        }
+
+        // Render Result using integration.js logic but with calculated data
+        const titleMap = {
+            ptica: 'Птица',
+            homiak: 'Хомяк',
+            lisa: 'Лиса',
+            profi: 'Профи'
         };
 
-        const result = await apiRequest('/tests/teremok/submit', 'POST', payload);
-        renderResult(result);
+        const descMap = {
+            ptica: 'Работает только под контролем. Главная мотивация — страх наказания.',
+            homiak: 'Работает за деньги. Главная мотивация — личная выгода.',
+            lisa: 'Работает за статус. Главная мотивация — власть и признание.',
+            profi: 'Работает на результат. Главная мотивация — профессионализм и интерес.'
+        };
+
+        const resultData = {
+            main_type: resultType,
+            main_type_title: titleMap[resultType],
+            short_description: descMap[resultType]
+            // telegram_deeplink removed to prevent overwriting
+        };
+
+        renderResult(resultData);
 
     } catch (e) {
-        container.innerHTML = 'Ошибка при отправке ответов.';
+        console.error(e);
+        container.innerHTML = 'Ошибка при обработке результатов.';
     }
 }
 
 function renderResult(result) {
-    // result: { main_type, main_type_title, short_description, telegram_deeplink }
+    // result: { main_type, main_type_title, short_description }
     const container = document.getElementById('testContainer'); // Hide questions
     const resultContainer = document.getElementById('testResultContainer'); // Show result
     const telegramBlock = document.getElementById('testTelegramBlock'); // Update link
@@ -331,12 +387,8 @@ function renderResult(result) {
 
     if (telegramBlock) {
         telegramBlock.style.display = 'flex';
-        const linkBtn = telegramBlock.querySelector('a.telegram-button');
-        if (linkBtn && result.telegram_deeplink) {
-            linkBtn.href = result.telegram_deeplink;
-            linkBtn.textContent = 'Пройти полный тест в Telegram-боте';
-            linkBtn.target = '_blank';
-        }
+        // We do NOT overwrite the link/text here anymore.
+        // It stays as defined in index.html: "Написать менеджеру" -> @stalkermedia1
     }
 }
 
