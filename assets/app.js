@@ -116,30 +116,24 @@ function openTestModal() {
     modal.classList.add('open');
     adjustBodyScroll();
 
-    // Access Control
-    const isCompleted = localStorage.getItem('teremok_test_completed');
-    const savedResult = localStorage.getItem('teremok_test_result');
+    // ALWAYS Start new test (Fix: User reports skipping to result)
+    // We ignore localStorage history to allow retakes
+    currentQuestionIndex = 0;
+    userAnswers = {};
 
-    if (isCompleted && savedResult) {
-        // Show result directly
-        showDetailedResult(savedResult);
-    } else {
-        // Start new test
-        currentQuestionIndex = 0;
-        userAnswers = {};
+    const container = document.getElementById('testContainer');
+    const resultContainer = document.getElementById('testResultContainer');
+    const nextStep = document.getElementById('testNextStep');
+    const telegramBlock = document.getElementById('testTelegramBlock');
 
-        const container = document.getElementById('testContainer');
-        const resultContainer = document.getElementById('testResultContainer');
-        const nextStep = document.getElementById('testNextStep');
-        const telegramBlock = document.getElementById('testTelegramBlock');
+    if (container) container.style.display = 'block';
+    if (resultContainer) resultContainer.style.display = 'none';
+    if (nextStep) nextStep.style.display = 'none';
+    if (telegramBlock) telegramBlock.style.display = 'none';
 
-        if (container) container.style.display = 'block';
-        if (resultContainer) resultContainer.style.display = 'none';
-        if (nextStep) nextStep.style.display = 'none';
-        if (telegramBlock) telegramBlock.style.display = 'none';
+    renderQuestion();
 
-        renderQuestion();
-    }
+    renderQuestion();
 }
 
 // Закрыть модал теста
