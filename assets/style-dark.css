@@ -547,8 +547,8 @@ h2 {
 
 .card-header .level-subtitle {
     margin-bottom: 0;
-    font-size: 0.8rem;
-    /* Reduced from 0.85rem */
+    font-size: 0.7rem;
+    /* Reduced from 0.8rem */
     color: var(--text-secondary);
     /* Softer color */
 }
@@ -1518,7 +1518,7 @@ button:focus:not(:focus-visible) {
     /* Previous content (if any, but removing specific video block css) */
 }
 
-< !-- Hamster Video Block Removed -->
+/* Hamster Video Block Removed */
 
 /* Registration Stack Redesign */
 .registration-stack {
