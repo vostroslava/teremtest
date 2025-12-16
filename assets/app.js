@@ -455,6 +455,7 @@ function sendToGoogleSheet(mainType, types, resultText) {
         fd.append('team_size', data.team_size || '');
         fd.append('phone', data.phone || '');
         fd.append('messenger', data.messenger || '');
+        fd.append('telegram_username', data.telegram_username || '');
         fd.append('email', data.email || '');
         fd.append('request', data.request || '');
     } else {
@@ -464,6 +465,7 @@ function sendToGoogleSheet(mainType, types, resultText) {
         fd.append('team_size', '');
         fd.append('phone', '');
         fd.append('messenger', '');
+        fd.append('telegram_username', '');
         fd.append('email', '');
         fd.append('request', '');
     }
@@ -486,14 +488,40 @@ function sendToGoogleSheet(mainType, types, resultText) {
     });
 }
 
+// Константа для Telegram
+const TELEGRAM_URL = 'https://t.me/stalkermedia1';
+
+// Управление полем Telegram в форме
+function toggleMessengerField() {
+    const messengerSelect = document.getElementById('messenger');
+    const telegramGroup = document.getElementById('telegram-field-group');
+    const phoneInput = document.getElementById('phone');
+    const phoneLabel = document.querySelector('label[for="phone"]');
+
+    if (!messengerSelect || !telegramGroup) return;
+
+    if (messengerSelect.value === 'telegram') {
+        telegramGroup.style.display = 'block';
+        // Делаем телефон необязательным, если выбран Telegram (по желанию)
+        // Но чтобы не ломать логику, оставим обязательным, просто сменим акцент
+        // Или можно просто показать поле Telegram.
+        // phoneInput.required = false; // Если разрешаем без телефона
+    } else {
+        telegramGroup.style.display = 'none';
+        // phoneInput.required = true;
+    }
+}
+
 // Инициализация полоски отсчёта времени до мероприятия
 function initEventCountdown() {
     const textEl = document.getElementById('eventCountdownText');
     const barEl = document.getElementById('eventCountdownFill');
+
+    // Если элементов нет, значит DOM не готов или их нет на странице
     if (!textEl || !barEl) return;
 
     // 18 декабря 2025, 10:00 — локальное время
-    const eventStart = new Date(2025, 11, 18, 10, 0, 0);
+    const eventStart = new Date(2025, 11, 18, 10, 0, 0); // Месяцы в JS с 0 (11 = Декабрь)
     const windowMs = 30 * 24 * 60 * 60 * 1000; // 30 дней до события как "полная шкала"
 
     function formatUnit(value, forms) {
@@ -521,6 +549,7 @@ function initEventCountdown() {
         const hours = Math.floor(diff / (1000 * 60 * 60));
         diff -= hours * 1000 * 60 * 60;
         const minutes = Math.floor(diff / (1000 * 60));
+        const seconds = Math.floor(diff / 1000); // Если нужно, можно добавить секунды
 
         let parts = [];
         if (days > 0) {
@@ -529,7 +558,8 @@ function initEventCountdown() {
         if (hours > 0) {
             parts.push(formatUnit(hours, ['час', 'часа', 'часов']));
         }
-        if (days === 0 && hours === 0 && minutes > 0) {
+        // Показываем минуты, если дней мало или их вообще нет
+        if (days < 3 && minutes > 0) {
             parts.push(formatUnit(minutes, ['минута', 'минуты', 'минут']));
         }
 
@@ -551,12 +581,21 @@ function initEventCountdown() {
     }
 
     updateCountdown();
-    setInterval(updateCountdown, 60000);
+    // Обновляем чаще, чтобы было видно жизнь (раз в секунду)
+    setInterval(updateCountdown, 1000);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // 1. Замена всех Telegram ссылок
+    const telegramLinks = document.querySelectorAll('a[href*="t.me"]');
+    telegramLinks.forEach(link => {
+        link.href = TELEGRAM_URL;
+    });
 
+    // 2. Инициализация таймера
+    initEventCountdown();
 
+    // 3. Закрытие модалок по Escape
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
 
@@ -597,6 +636,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         animated.forEach(el => el.classList.add('in-view'));
     }
+
 
     // Testimonials & experts accordion
     const testimonialHeaders = document.querySelectorAll('.testimonial-header');
