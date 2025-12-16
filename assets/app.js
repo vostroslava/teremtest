@@ -809,22 +809,31 @@ async function handleContactSubmit(event) {
         // Send initial registration
         await sendToGoogleSheet('', {}, 'Регистрация (начало)');
 
-        // Success
-        if (statusEl) {
-            statusEl.textContent = "Заявка отправлена. Мы свяжемся с вами.";
-            statusEl.className = "form-status success";
-        }
+        // Success: Replace form with "Next Steps" view
+        const successHTML = `
+            <div class="success-next-steps">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+                <h3 class="success-title">Заявка отправлена</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    Мы свяжемся с вами в ближайший рабочий день и подтвердим участие.
+                </p>
+                <div class="success-actions">
+                    <button class="btn-primary" type="button" onclick="closeLeadModal(); openTestModal();">
+                        Открыть мини-тест
+                    </button>
+                    <button class="btn-secondary" type="button" onclick="closeLeadModal()">
+                        Вернуться на страницу
+                    </button>
+                    <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">
+                        (Результат теста подтянется к вашей заявке автоматически)
+                    </div>
+                </div>
+            </div>
+        `;
 
-        // Short delay to show success message before switching
-        await new Promise(r => setTimeout(r, 1500));
-
-        // Restore button (though modal closes)
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-
-        // Close Contact Modal & Open Test Modal
-        if (typeof closeLeadModal === 'function') closeLeadModal();
-        if (typeof openTestModal === 'function') openTestModal();
+        // Replace form content container
+        // We find the parent of the form to replace content clean
+        form.innerHTML = successHTML;
 
     } catch (error) {
         // Error
