@@ -902,7 +902,8 @@
 .hero {
     min-height: auto;
     gap: 1.5rem;
-    align-items: start;
+    align-items: center;
+    /* Center image vertically */
     padding-top: 0;
     /* Remove inner padding */
 }
@@ -943,6 +944,7 @@ h1 {
     object-fit: contain;
     border-radius: 50%;
 }
+
 /* --- HERO OFFER SLAB --- */
 .hero-offer-slab {
     margin: 1rem 0 1.25rem;
@@ -1109,21 +1111,27 @@ h1 {
 
 /* --- Hero Slab Compact --- */
 .hero-offer-slab {
-    margin: 0.5rem 0 1rem; /* Reduced top/bottom margin */
-    padding: 0.8rem 1rem 0.8rem; /* Reduced padding */
+    margin: 0.5rem 0 1rem;
+    /* Reduced top/bottom margin */
+    padding: 0.8rem 1rem 0.8rem;
+    /* Reduced padding */
 }
 
 .hero-offer-head {
-    margin-bottom: 0.6rem; /* Tighter header */
+    margin-bottom: 0.6rem;
+    /* Tighter header */
 }
 
 .hero-price-card {
-    min-height: auto; /* Remove fixed height constraint */
-    padding: 0.7rem 0.8rem; /* Tighter inner padding */
+    min-height: auto;
+    /* Remove fixed height constraint */
+    padding: 0.7rem 0.8rem;
+    /* Tighter inner padding */
 }
 
 .hero-price-value {
-    font-size: 1.8rem; /* Slightly smaller price */
+    font-size: 1.8rem;
+    /* Slightly smaller price */
     margin-top: 0.2rem;
     margin-bottom: 0.1rem;
 }
@@ -1134,7 +1142,8 @@ h1 {
 }
 
 .hero-price-top {
-    margin-bottom: 0.3rem; /* Tighter top row in card */
+    margin-bottom: 0.3rem;
+    /* Tighter top row in card */
 }
 
 .hero-offer-actions {
@@ -1145,5 +1154,6 @@ h1 {
 
 /* --- Hero Image Size Adjustment --- */
 .teremok-wrapper {
-    max-width: 400px; /* Reduced by 20% from 500px */
+    max-width: 400px;
+    /* Reduced by 20% from 500px */
 }
