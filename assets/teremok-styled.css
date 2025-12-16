@@ -943,3 +943,166 @@ h1 {
     object-fit: contain;
     border-radius: 50%;
 }
+/* --- HERO OFFER SLAB --- */
+.hero-offer-slab {
+    margin: 1rem 0 1.25rem;
+    padding: 1.05rem 1.05rem 0.95rem;
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-offer-slab::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.55), rgba(255, 255, 255, 0.12), rgba(255, 215, 0, 0.18));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.hero-offer-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.85rem;
+}
+
+.hero-offer-when {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.72);
+    letter-spacing: 0.2px;
+}
+
+.hero-offer-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: -0.2px;
+}
+
+.hero-offer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+}
+
+.hero-price-card {
+    border-radius: 16px;
+    padding: 0.85rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    min-height: 108px;
+}
+
+.hero-price-card--promo {
+    border-color: rgba(255, 215, 0, 0.30);
+    background: rgba(255, 215, 0, 0.10);
+}
+
+.hero-price-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.55rem;
+}
+
+.hero-price-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.hero-price-tag--muted {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.hero-price-old {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.strike {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: rgba(255, 255, 255, 0.55);
+}
+
+.hero-price-value {
+    font-size: 2.05rem;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -0.6px;
+    color: rgba(255, 255, 255, 0.96);
+}
+
+.hero-price-currency {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.hero-price-note {
+    margin-top: 0.3rem;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.70);
+}
+
+.hero-offer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    margin-top: 0.9rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.hero-offer-cta {
+    white-space: nowrap;
+}
+
+.hero-offer-footnote {
+    font-size: 0.86rem;
+    color: rgba(255, 255, 255, 0.62);
+}
+
+@media (max-width: 860px) {
+    .hero-offer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-offer-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-offer-cta {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-offer-footnote {
+        text-align: center;
+    }
+}
