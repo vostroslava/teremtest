@@ -1142,3 +1142,8 @@ h1 {
     padding-top: 0.7rem;
     gap: 0.7rem;
 }
+
+/* --- Hero Image Size Adjustment --- */
+.teremok-wrapper {
+    max-width: 400px; /* Reduced by 20% from 500px */
+}
