@@ -1106,3 +1106,39 @@ h1 {
         text-align: center;
     }
 }
+
+/* --- Hero Slab Compact --- */
+.hero-offer-slab {
+    margin: 0.5rem 0 1rem; /* Reduced top/bottom margin */
+    padding: 0.8rem 1rem 0.8rem; /* Reduced padding */
+}
+
+.hero-offer-head {
+    margin-bottom: 0.6rem; /* Tighter header */
+}
+
+.hero-price-card {
+    min-height: auto; /* Remove fixed height constraint */
+    padding: 0.7rem 0.8rem; /* Tighter inner padding */
+}
+
+.hero-price-value {
+    font-size: 1.8rem; /* Slightly smaller price */
+    margin-top: 0.2rem;
+    margin-bottom: 0.1rem;
+}
+
+.hero-price-note {
+    font-size: 0.85rem;
+    margin-top: 0.1rem;
+}
+
+.hero-price-top {
+    margin-bottom: 0.3rem; /* Tighter top row in card */
+}
+
+.hero-offer-actions {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    gap: 0.7rem;
+}
