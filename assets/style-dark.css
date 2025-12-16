@@ -1580,7 +1580,7 @@ button:focus:not(:focus-visible) {
 /* Tap Cue (Minimalist Arrow) */
 .tap-cue {
     position: absolute;
-    right: 16px;
+    right: 10px;
     bottom: 35px;
     /* top: 50%; removed to avoid overlap */
     /* transform: translateY(-50%); removed */
