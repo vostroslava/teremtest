@@ -1563,60 +1563,122 @@ button:focus:not(:focus-visible) {
     color: rgba(255, 255, 255, 0.68);
 }
 
-/* Make level cards look interactive */
+/* Interactivity Base */
 .level-card {
     cursor: pointer;
     position: relative;
-    /* Ensure existing transitions are preserved, extending them if needed */
+    overflow: hidden;
+    /* Ensure existing transitions are preserved */
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.level-card:focus-visible,
-.level-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.22);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.10);
-}
-
-/* Keyboard focus ring */
 .level-card:focus-visible {
     outline: 2px solid rgba(255, 215, 0, 0.55);
     outline-offset: 3px;
 }
 
-/* "Read More" CTA */
-.card-cta {
+/* Tap Cue (Minimalist Arrow) */
+.tap-cue {
     position: absolute;
-    right: 18px;
-    bottom: 14px;
-    display: inline-flex;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.75);
-    opacity: 0.0;
-    transform: translateY(2px);
-    transition: opacity .18s ease, transform .18s ease;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    opacity: 0.85;
     pointer-events: none;
-    /* Don't block click on card */
+    z-index: 2;
 }
 
-.card-cta-arrow {
+.tap-cue-arrow {
+    font-size: 22px;
+    line-height: 1;
     font-weight: 800;
     color: rgba(255, 215, 0, 0.85);
+    transform: translateX(0);
 }
 
-/* Show CTA on hover/focus */
-.level-card:hover .card-cta,
-.level-card:focus-visible .card-cta {
+/* Soft Nudge Animation */
+@keyframes cueNudge {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+}
+
+/* Soft Border Pulse */
+@keyframes cardPulse {
+
+    0%,
+    100% {
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    50% {
+        border-color: rgba(255, 215, 0, 0.28);
+    }
+}
+
+/* Animation Activation Class */
+.level-card.is-nudged {
+    animation: cardPulse 1.8s ease-in-out 2;
+}
+
+.level-card.is-nudged .tap-cue-arrow {
+    animation: cueNudge 0.9s ease-in-out 3;
+}
+
+/* Ripple Effect (CSS only) */
+.level-card::after {
+    content: "";
+    position: absolute;
+    inset: auto 10px 10px auto;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 215, 0, 0.25);
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.level-card:active::after {
+    transform: scale(18);
     opacity: 1;
-    transform: translateY(0);
+    transition: transform .35s ease, opacity .45s ease;
 }
 
-/* Always show CTA on touch/non-hover devices */
-@media (hover: none) {
-    .card-cta {
-        opacity: 0.85;
-        transform: none;
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .tap-cue {
+        right: 12px;
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+
+    .level-card.is-nudged,
+    .level-card.is-nudged .tap-cue-arrow {
+        animation: none !important;
+    }
+
+    .level-card:active::after {
+        transition: none;
     }
 }

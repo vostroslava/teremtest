@@ -753,6 +753,44 @@ function openModal(modalId) {
     }
 }
 
+// Card Nudge Animation Logic
+function initTypeCardsNudge() {
+    const section = document.querySelector('#about');
+    // Using .level-card as the real selector
+    const cards = Array.from(document.querySelectorAll('.level-card'));
+
+    if (!section || cards.length === 0) return;
+
+    const stop = () => cards.forEach(c => c.classList.remove('is-nudged'));
+
+    // Stop animation after first click on any card
+    cards.forEach(c => c.addEventListener('click', stop, {
+        once: true
+    }));
+
+    // Start animation only when section is visible
+    const io = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (!entry.isIntersecting) return;
+
+        // Animate first 3 cards to avoid visual noise
+        cards.slice(0, 3).forEach(c => c.classList.add('is-nudged'));
+
+        // Stop after 6 seconds
+        setTimeout(stop, 6000);
+        io.disconnect();
+    }, {
+        threshold: 0.35
+    });
+
+    io.observe(section);
+}
+
+// Initialize Nudge
+document.addEventListener('DOMContentLoaded', () => {
+    initTypeCardsNudge();
+});
+
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
