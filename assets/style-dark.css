@@ -496,26 +496,32 @@ h2 {
 }
 
 /* Card Header - Image + Title side by side */
+/* Card Header - Compact Redesign */
 .card-header {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    padding: 1.5rem 1.5rem 1rem;
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.08) 0%, transparent 100%);
+    gap: 1rem;
+    /* Reduced gap */
+    padding: 1rem;
+    /* Reduced padding */
+    background: transparent;
+    /* Remove header-specific background to blend */
 }
 
 .card-icon {
-    font-size: 3rem;
-    width: 90px;
-    height: 90px;
+    font-size: 2.5rem;
+    width: 64px;
+    /* Reduced from 90px */
+    height: 64px;
+    /* Reduced from 90px */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     border-radius: 50%;
     background: linear-gradient(135deg, #8b5cf6, #ec4899);
-    padding: 3px;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    padding: 2px;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
     overflow: hidden;
 }
 
@@ -533,14 +539,18 @@ h2 {
 }
 
 .card-title-block h3 {
-    font-size: 1.6rem;
-    margin-bottom: 0.4rem;
+    font-size: 1.3rem;
+    /* Reduced from 1.6rem */
+    margin-bottom: 0.2rem;
     color: var(--text-primary);
 }
 
 .card-header .level-subtitle {
     margin-bottom: 0;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    /* Reduced from 0.85rem */
+    color: var(--text-secondary);
+    /* Softer color */
 }
 
 /* Card Body - Description */
@@ -1482,4 +1492,6 @@ button:focus:not(:focus-visible) {
 /* Мобильная адаптация */
 @media (max-width: 768px) {
     /* Previous content (if any, but removing specific video block css) */
-}<!-- Hamster Video Block Removed -->
+}
+
+< !-- Hamster Video Block Removed -->
