@@ -905,3 +905,16 @@ h1 {
 .hero-actions {
     margin-top: 1rem;
 }
+
+/* --- Circular Logo --- */
+.logo-mark {
+    overflow: hidden;
+    border-radius: 50%;
+    /* Ensure aspect ratio if needed, though img usually handles it */
+}
+
+/* Ensure the image fits nicely */
+.logo-mark img {
+    border-radius: 50%; 
+    display: block;
+}
