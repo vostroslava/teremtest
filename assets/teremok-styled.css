@@ -313,3 +313,20 @@
     display: block;
     animation: fadeIn 0.3s ease;
 }
+/* Form Status Message */
+.form-status {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: center;
+    min-height: 1.4em; /* Reserve space */
+    color: var(--text-secondary);
+}
+
+.form-status.error {
+    color: #ef4444;
+}
+
+.form-status.success {
+    color: #22c55e;
+}

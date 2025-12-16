@@ -2,6 +2,14 @@
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwnQR15r9C6AwTp_eYY3RV6uNKu7FaYt0xSra776uZS70rifwMxLKpfDyW0Ls85f5EQ/exec";
 
+function isValidScriptUrl(url) {
+    return typeof url === "string" &&
+        url.startsWith("https://script.google.com/macros/s/") &&
+        url.endsWith("/exec") &&
+        !url.includes("...") &&
+        url.length > 80;
+}
+
 let leadData = null;
 let testSubmitted = false;
 
@@ -442,7 +450,7 @@ function getResultHTML(type) {
 }
 
 // Отправка данных в Google Script
-function sendToGoogleSheet(mainType, types, resultText) {
+async function sendToGoogleSheet(mainType, types, resultText) {
     const fd = new FormData();
 
     // Fix: Access global variable set by integration.js if local is null
@@ -450,42 +458,37 @@ function sendToGoogleSheet(mainType, types, resultText) {
 
     if (data) {
         fd.append('name', data.name || '');
-        // fd.append('role', data.role || '');
         fd.append('company', data.company || '');
-        // fd.append('team_size', data.team_size || '');
         fd.append('phone', data.phone || '');
-        // fd.append('messenger', data.messenger || '');
-        // fd.append('telegram_username', data.telegram_username || '');
-        // fd.append('email', data.email || '');
-        // fd.append('request', data.request || '');
     } else {
         fd.append('name', '');
-        // fd.append('role', '');
         fd.append('company', '');
-        // fd.append('team_size', '');
         fd.append('phone', '');
-        // fd.append('messenger', '');
-        // fd.append('telegram_username', '');
-        // fd.append('email', '');
-        // fd.append('request', '');
     }
 
     fd.append('test_main_type', mainType || '');
     fd.append('test_main_text', resultText || '');
-    fd.append('test_ptica', types.ptica || 0);
-    fd.append('test_homiak', types.homiak || 0);
-    fd.append('test_lisa', types.lisa || 0);
-    fd.append('test_profi', types.profi || 0);
-    fd.append('test_volk', types.volk || 0);
-    fd.append('test_medved', types.medved || 0);
+    // Ensure types is object before accessing
+    const safeTypes = types || {};
+    fd.append('test_ptica', safeTypes.ptica || 0);
+    fd.append('test_homiak', safeTypes.homiak || 0);
+    fd.append('test_lisa', safeTypes.lisa || 0);
+    fd.append('test_profi', safeTypes.profi || 0);
+    fd.append('test_volk', safeTypes.volk || 0);
+    fd.append('test_medved', safeTypes.medved || 0);
 
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: fd,
-        mode: 'no-cors'
-    }).catch(function (err) {
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: fd,
+            mode: 'no-cors'
+        });
+        // Success (opaque)
+        return true;
+    } catch (err) {
         console.error('Ошибка отправки в Google Script', err);
-    });
+        throw err;
+    }
 }
 
 // Константа для Telegram
@@ -766,44 +769,73 @@ async function handleContactSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const submitBtn = form.querySelector('button[type="submit"]');
+    const statusEl = document.getElementById('formStatus');
     const originalText = submitBtn.textContent;
+
+    // 1. Validate Script URL
+    if (!isValidScriptUrl(SCRIPT_URL)) {
+        console.error('Invalid SCRIPT_URL configuration:', SCRIPT_URL);
+        if (statusEl) {
+            statusEl.textContent = "Форма временно недоступна. Сообщите менеджеру: не настроен SCRIPT_URL.";
+            statusEl.className = "form-status error";
+        }
+        return; // Stop submission
+    }
 
     // UI: Loading state
     submitBtn.disabled = true;
     submitBtn.textContent = 'Отправка...';
+    if (statusEl) {
+        statusEl.textContent = "Отправляем...";
+        statusEl.className = "form-status";
+    }
 
     // Collect Data
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    // Store globally for test submission
-    // Note: We use window.leadData to ensure it persists.
+    // Store globally
     window.leadData = {
         name: data.name || '',
-        role: data.role || '',
         company: data.company || '',
-        team_size: data.team_size || '',
-        phone: data.phone || '',
-        messenger: data.messenger || '',
-        email: data.email || '',
-        request: data.request || ''
+        phone: data.phone || ''
     };
 
-    // Update local variable if it exists (it does at top of file)
     if (typeof leadData !== 'undefined') {
         leadData = window.leadData;
     }
 
-    // Simulate delay for better UX
-    await new Promise(r => setTimeout(r, 600));
+    try {
+        // Send initial registration
+        await sendToGoogleSheet('', {}, 'Регистрация (начало)');
 
-    // Restore button
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
+        // Success
+        if (statusEl) {
+            statusEl.textContent = "Заявка отправлена. Мы свяжемся с вами.";
+            statusEl.className = "form-status success";
+        }
 
-    // Close Contact Modal & Open Test Modal
-    if (typeof closeLeadModal === 'function') closeLeadModal();
-    if (typeof openTestModal === 'function') openTestModal();
+        // Short delay to show success message before switching
+        await new Promise(r => setTimeout(r, 1500));
+
+        // Restore button (though modal closes)
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+
+        // Close Contact Modal & Open Test Modal
+        if (typeof closeLeadModal === 'function') closeLeadModal();
+        if (typeof openTestModal === 'function') openTestModal();
+
+    } catch (error) {
+        // Error
+        console.error('Submission failed:', error);
+        if (statusEl) {
+            statusEl.textContent = "Не удалось отправить заявку. Попробуйте ещё раз или обновите страницу.";
+            statusEl.className = "form-status error";
+        }
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
 }
 
 // Initialize Contact Form Listener
