@@ -158,31 +158,6 @@ function closePrivacyModal() {
     adjustBodyScroll();
 }
 
-// Обработка отправки формы заявки
-function onLeadFormSubmit(e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-
-    // Показываем индикатор загрузки
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Отправка...';
-
-    const formData = new FormData(form);
-    leadData = Object.fromEntries(formData.entries());
-
-    // Небольшая задержка для пользовательского опыта
-    setTimeout(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-
-        // после регистрации открываем тест
-        closeLeadModal();
-        openTestModal();
-    }, 500);
-}
 
 // Логика Test 2.0
 const testQuestions = [
@@ -519,18 +494,7 @@ function initEventCountdown() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const leadForm = document.getElementById('leadForm');
-    if (leadForm) {
-        leadForm.addEventListener('submit', onLeadFormSubmit);
-    }
 
-    const miniTestForm = document.getElementById('miniTestForm');
-    if (miniTestForm) {
-        miniTestForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            submitMiniTest();
-        });
-    }
 
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
@@ -675,93 +639,4 @@ function closeModal(modalId) {
     }
 }
 
-// ===== HAMSTER INLINE VIDEO =====
-let hamsterVideoPlaying = false;
 
-function toggleHamsterVideo() {
-    const wrapper = document.querySelector('.avatar-wrapper');
-    const avatar = document.querySelector('.presenter-avatar');
-    const video = document.getElementById('hamsterVideoPlayer');
-
-    if (!video || !avatar) return;
-
-    if (hamsterVideoPlaying) {
-        // Остановить видео
-        stopHamsterVideo();
-    } else {
-        // Начать воспроизведение
-        playHamsterVideoInline();
-    }
-}
-
-function playHamsterVideoInline() {
-    const wrapper = document.querySelector('.avatar-wrapper');
-    const avatar = document.querySelector('.presenter-avatar');
-    const video = document.getElementById('hamsterVideoPlayer');
-    const ctaText = document.getElementById('ctaText');
-    const ctaIcon = document.querySelector('.cta-icon');
-
-    if (!video || !avatar) return;
-
-    // Активировать видео (добавляем класс на оба элемента)
-    if (wrapper) wrapper.classList.add('video-active');
-    avatar.classList.add('video-active');
-    video.currentTime = 0;
-
-    video.play().then(() => {
-        hamsterVideoPlaying = true;
-        if (ctaText) ctaText.textContent = 'Нажми, чтобы остановить';
-        if (ctaIcon) ctaIcon.textContent = '⏸️';
-    }).catch(err => {
-        console.log('Autoplay prevented:', err);
-        // Всё равно показываем видео, пользователь нажмёт play
-        hamsterVideoPlaying = true;
-        if (ctaText) ctaText.textContent = 'Нажми для паузы';
-        if (ctaIcon) ctaIcon.textContent = '⏸️';
-    });
-
-    // Когда видео закончится — вернуть картинку
-    video.onended = function () {
-        stopHamsterVideo();
-    };
-}
-
-function stopHamsterVideo() {
-    const wrapper = document.querySelector('.avatar-wrapper');
-    const avatar = document.querySelector('.presenter-avatar');
-    const video = document.getElementById('hamsterVideoPlayer');
-    const ctaText = document.getElementById('ctaText');
-    const ctaIcon = document.querySelector('.cta-icon');
-
-    if (video) {
-        video.pause();
-    }
-
-    if (wrapper) {
-        wrapper.classList.remove('video-active');
-    }
-    if (avatar) {
-        avatar.classList.remove('video-active');
-    }
-
-    hamsterVideoPlaying = false;
-
-    if (ctaText) ctaText.textContent = 'Нажми на меня — и я расскажу про себя!';
-    if (ctaIcon) ctaIcon.textContent = '👆';
-}
-
-// Остановить видео при скролле за пределы блока
-document.addEventListener('scroll', function () {
-    if (!hamsterVideoPlaying) return;
-
-    const block = document.getElementById('hamsterVideoBlock');
-    if (!block) return;
-
-    const rect = block.getBoundingClientRect();
-    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-    if (!isVisible) {
-        stopHamsterVideo();
-    }
-});
-// ===== END HAMSTER INLINE VIDEO =====
