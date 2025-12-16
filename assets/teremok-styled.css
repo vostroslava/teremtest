@@ -853,3 +853,21 @@
         font-size: 2.1rem;
     }
 }
+
+/* --- Header Refinements --- */
+.logo-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1; /* Tighten line height */
+    gap: 2px; /* Smallest gap */
+}
+
+.logo-text-secondary {
+    margin-top: -2px; /* Pull closer if needed */
+}
+
+/* Force single line links */
+.nav-links a {
+    white-space: nowrap;
+}
