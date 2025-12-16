@@ -1519,3 +1519,33 @@ button:focus:not(:focus-visible) {
 }
 
 < !-- Hamster Video Block Removed -->
+
+/* Registration Stack Redesign */
+.registration-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    /* Space between button and telegram module */
+    width: 100%;
+    /* max-width: 600px;  Removed max-width to let it be full container width if needed, or controlled by parent */
+}
+
+.telegram-module {
+    width: 100%;
+}
+
+.telegram-card {
+    height: 100%;
+    /* Ensure it fills height if needed */
+}
+
+.btn-full-width {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 1.2rem 2rem;
+    /* Larger touch area */
+    font-size: 1.1rem;
+    border-radius: 16px;
+    /* Match other cards */
+}
