@@ -916,6 +916,30 @@ footer {
     color: var(--text-primary);
 }
 
+/* Modal Lists (Restored Level Characteristics) */
+.modal-list {
+    list-style: none;
+    color: var(--text-secondary);
+    margin: 1rem 0;
+    padding-left: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.modal-list li {
+    margin-bottom: 0.6rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.modal-list li::before {
+    content: '•';
+    color: var(--accent-secondary);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
 /* Fullscreen Privacy Modal */
 #privacyModal .modal-window {
     width: 100%;
