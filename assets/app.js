@@ -682,7 +682,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Interactive Cards Modal Logic
+    // Interactive Cards Modal Logic
     document.querySelectorAll('.level-card').forEach(card => {
+        // Accessibility Attributes
+        const title = card.querySelector('h3') ? card.querySelector('h3').textContent : 'Level';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', 'Открыть описание: ' + title);
+
         // Click handler
         card.addEventListener('click', function (e) {
             const modalId = this.getAttribute('data-modal');
@@ -695,10 +702,7 @@ document.addEventListener('DOMContentLoaded', function () {
         card.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                const modalId = this.getAttribute('data-modal');
-                if (modalId) {
-                    openModal(modalId);
-                }
+                card.click(); // Reuse click handler
             }
         });
     });
