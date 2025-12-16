@@ -1581,7 +1581,7 @@ button:focus:not(:focus-visible) {
 .tap-cue {
     position: absolute;
     right: 16px;
-    bottom: 16px;
+    bottom: 35px;
     /* top: 50%; removed to avoid overlap */
     /* transform: translateY(-50%); removed */
     width: 34px;
