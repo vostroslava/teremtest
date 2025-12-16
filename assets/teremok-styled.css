@@ -107,6 +107,7 @@
         border-radius: 12px;
     }
 }
+
 /* Program Section Styling */
 .program-card .program-list {
     margin: 1rem 0;
@@ -186,33 +187,6 @@
     }
 }
 
-/* FAQ Section Styling */
-.faq-list {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.faq-item {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 1.5rem;
-}
-
-.faq-question {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #ffd700;
-    margin-bottom: 0.75rem;
-}
-
-.faq-answer {
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
 
 /* Takeaways Block Styling */
 .takeaways-block {
@@ -256,6 +230,86 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Accordion FAQ Styling (Matched to Testimonials) */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-header {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.faq-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-right: 1rem;
+    color: #ffd700;
+    /* Keeping the gold color from previous edit or matching theme? User wanted match. Theme uses white usually. I'll use a variable or white. */
+    color: var(--text-primary);
+    /* Matching testimonials */
+}
+
+/* Optional: if user wants the question highlighted, let's keep it clean white/primary like screenshots */
+
+.faq-toggle-icon {
+    font-size: 2rem;
+    color: var(--accent-primary);
+    font-weight: 300;
+    transition: transform 0.3s;
+    line-height: 1;
+}
+
+.faq-item.open .faq-toggle-icon {
+    transform: rotate(45deg);
+}
+
+.faq-body {
+    padding: 0 1.5rem 1.5rem;
+    display: none;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1.5rem;
+    line-height: 1.6;
+}
+
+.faq-item.open .faq-body {
+    display: block;
+    animation: fadeIn 0.3s ease;
 }

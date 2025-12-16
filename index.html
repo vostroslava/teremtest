@@ -701,52 +701,79 @@
                     </div>
                     <div class="faq-list">
                         <div class="faq-item">
-                            <div class="faq-question">Кому точно подойдёт, а кому нет?</div>
-                            <div class="faq-answer">
-                                Подойдёт собственникам и руководителям, у которых уже есть команда (от 3-5 человек) и
+                            <button class="faq-header" type="button">
+                                <span class="faq-title">Кому точно подойдёт, а кому нет?</span>
+                                <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="faq-body">
+                                Пододёт собственникам и руководителям, у которых уже есть команда (от 3-5 человек) и
                                 желание разобраться в людях. Не подойдёт тем, кто ищет «волшебную таблетку» и не готов
                                 менять свой стиль управления, или у кого пока нет подчинённых.
                             </div>
                         </div>
+
                         <div class="faq-item">
-                            <div class="faq-question">Можно ли прийти вдвоём и как работает акция?</div>
-                            <div class="faq-answer">
+                            <button class="faq-header" type="button">
+                                <span class="faq-title">Можно ли прийти вдвоём и как работает акция?</span>
+                                <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="faq-body">
                                 Да, приходить с партнёром или HR-директором — отличная идея, так вы сразу внедрите общий
                                 язык. По акции до 31 декабря стоимость за двоих — 690 BYN (вместо 1180 BYN).
                             </div>
                         </div>
+
                         <div class="faq-item">
-                            <div class="faq-question">Что будет на выходе?</div>
-                            <div class="faq-answer">
+                            <button class="faq-header" type="button">
+                                <span class="faq-title">Что будет на выходе?</span>
+                                <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="faq-body">
                                 Вы получите диагностику своей команды, конкретный план действий и набор инструментов.
                                 Подробнее смотрите в блоке <a href="#results">«Что вы получите»</a>.
                             </div>
                         </div>
+
                         <div class="faq-item">
-                            <div class="faq-question">Подойдёт ли, если я не HR (я РОП, Коммерческий, Сервис)?</div>
-                            <div class="faq-answer">
+                            <button class="faq-header" type="button">
+                                <span class="faq-title">Подойдёт ли, если я не HR (я РОП, Коммерческий, Сервис)?</span>
+                                <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="faq-body">
                                 Да! Модель «Теремок» написана на языке бизнеса, а не психологии. Она идеально подходит
                                 для линейных руководителей, чтобы быстро оценивать адекватность и результат сотрудников.
                             </div>
                         </div>
+
                         <div class="faq-item">
-                            <div class="faq-question">Если команда маленькая (или очень большая)?</div>
-                            <div class="faq-answer">
+                            <button class="faq-header" type="button">
+                                <span class="faq-title">Если команда маленькая (или очень большая)?</span>
+                                <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="faq-body">
                                 Для маленьких команд (до 10 чел.) вы разберёте каждого сотрудника. Для больших —
                                 научитесь
                                 видеть ключевых игроков и «ядро», а также поймёте процентное соотношение типажей.
                             </div>
                         </div>
+
                         <div class="faq-item">
-                            <div class="faq-question">Какие есть варианты оплаты?</div>
-                            <div class="faq-answer">
+                            <button class="faq-header" type="button">
+                                <span class="faq-title">Какие есть варианты оплаты?</span>
+                                <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="faq-body">
                                 Мы работаем с юрлицами и физлицами. Выставим счёт, примем оплату картой или ЕРИП. Все
                                 варианты подскажет менеджер при подтверждении участия.
                             </div>
                         </div>
+
                         <div class="faq-item">
-                            <div class="faq-question">Что если у меня не получится прийти?</div>
-                            <div class="faq-answer">
+                            <button class="faq-header" type="button">
+                                <span class="faq-title">Что если у меня не получится прийти?</span>
+                                <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="faq-body">
                                 Мы обсуждаем перенос участия на следующий поток индивидуально. Предупредите нас заранее,
                                 и мы найдём решение.
                             </div>
@@ -903,6 +930,7 @@
                     <input class="input" type="text" id="name" name="name" placeholder="Как к вам обращаться" required>
                 </div>
 
+                <!--
                 <div class="field-group">
                     <label for="role">Ваша роль <span class="required">*</span></label>
                     <select class="select" id="role" name="role" required>
@@ -914,17 +942,20 @@
                         <option value="other">Другое</option>
                     </select>
                 </div>
+                -->
 
                 <div class="field-group">
                     <label for="company">Компания</label>
                     <input class="input" type="text" id="company" name="company" placeholder="Название компании">
                 </div>
 
+                <!--
                 <div class="field-group">
                     <label for="team_size">Размер команды</label>
                     <input class="input" type="text" id="team_size" name="team_size"
                         placeholder="Например: 25 человек, отдел продаж 8 человек">
                 </div>
+                -->
 
                 <div class="field-group">
                     <label for="phone">Телефон <span class="required">*</span></label>
@@ -934,6 +965,7 @@
                     </div>
                 </div>
 
+                <!--
                 <div class="field-group">
                     <label for="messenger">Удобный мессенджер</label>
                     <select class="select" id="messenger" name="messenger" onchange="toggleMessengerField()">
@@ -953,7 +985,9 @@
                         Мы напишем вам в Telegram вместо звонка.
                     </div>
                 </div>
+                -->
 
+                <!--
                 <div class="field-group">
                     <label for="email">E-mail</label>
                     <input class="input" type="email" id="email" name="email"
@@ -965,6 +999,7 @@
                     <textarea id="request" name="request"
                         placeholder="С чем хотите поработать на «Теремке» — команда, вовлечённость, подбор, управленческие решения и т.п."></textarea>
                 </div>
+                -->
 
                 <div class="field-group">
                     <label class="consent-label">

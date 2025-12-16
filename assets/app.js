@@ -450,24 +450,24 @@ function sendToGoogleSheet(mainType, types, resultText) {
 
     if (data) {
         fd.append('name', data.name || '');
-        fd.append('role', data.role || '');
+        // fd.append('role', data.role || '');
         fd.append('company', data.company || '');
-        fd.append('team_size', data.team_size || '');
+        // fd.append('team_size', data.team_size || '');
         fd.append('phone', data.phone || '');
-        fd.append('messenger', data.messenger || '');
-        fd.append('telegram_username', data.telegram_username || '');
-        fd.append('email', data.email || '');
-        fd.append('request', data.request || '');
+        // fd.append('messenger', data.messenger || '');
+        // fd.append('telegram_username', data.telegram_username || '');
+        // fd.append('email', data.email || '');
+        // fd.append('request', data.request || '');
     } else {
         fd.append('name', '');
-        fd.append('role', '');
+        // fd.append('role', '');
         fd.append('company', '');
-        fd.append('team_size', '');
+        // fd.append('team_size', '');
         fd.append('phone', '');
-        fd.append('messenger', '');
-        fd.append('telegram_username', '');
-        fd.append('email', '');
-        fd.append('request', '');
+        // fd.append('messenger', '');
+        // fd.append('telegram_username', '');
+        // fd.append('email', '');
+        // fd.append('request', '');
     }
 
     fd.append('test_main_type', mainType || '');
@@ -491,6 +491,7 @@ function sendToGoogleSheet(mainType, types, resultText) {
 // Константа для Telegram
 const TELEGRAM_URL = 'https://t.me/stalkermedia1';
 
+/*
 // Управление полем Telegram в форме
 function toggleMessengerField() {
     const messengerSelect = document.getElementById('messenger');
@@ -502,15 +503,11 @@ function toggleMessengerField() {
 
     if (messengerSelect.value === 'telegram') {
         telegramGroup.style.display = 'block';
-        // Делаем телефон необязательным, если выбран Telegram (по желанию)
-        // Но чтобы не ломать логику, оставим обязательным, просто сменим акцент
-        // Или можно просто показать поле Telegram.
-        // phoneInput.required = false; // Если разрешаем без телефона
     } else {
         telegramGroup.style.display = 'none';
-        // phoneInput.required = true;
     }
 }
+*/
 
 // Инициализация полоски отсчёта времени до мероприятия
 function initEventCountdown() {
@@ -646,6 +643,29 @@ document.addEventListener('DOMContentLoaded', function () {
             const isOpen = item.classList.contains('open');
 
             document.querySelectorAll('.testimonial-item.open').forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('open');
+                }
+            });
+
+            if (!isOpen) {
+                item.classList.add('open');
+            } else {
+                item.classList.remove('open');
+            }
+        });
+    });
+
+    // FAQ Accordion (Matched Logic)
+    const faqHeaders = document.querySelectorAll('.faq-header');
+    faqHeaders.forEach(header => {
+        header.addEventListener('click', function () {
+            const item = header.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+
+            // Close others if you want strict accordion, else optional.
+            // User screenshot implies accordion.
+            document.querySelectorAll('.faq-item.open').forEach(other => {
                 if (other !== item) {
                     other.classList.remove('open');
                 }
