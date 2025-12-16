@@ -871,3 +871,37 @@
 .nav-links a {
     white-space: nowrap;
 }
+
+/* --- Hero Vertical Optimization --- */
+#top.section {
+    padding-top: 2rem; /* Significantly reduced */
+    padding-bottom: 2rem;
+}
+
+.hero {
+    min-height: auto; /* Allow content to dictate height */
+    gap: 2rem; /* Tighter Layout */
+    align-items: start; /* Align to top */
+    padding-top: 2rem;
+}
+
+.hero-brand-badge {
+    margin-bottom: 0.6rem;
+}
+
+.hero-offer-card {
+    margin: 0.5rem 0 1rem;
+}
+
+h1 {
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    margin-bottom: 1rem;
+}
+
+.hero-actions {
+    margin-top: 1rem;
+}
