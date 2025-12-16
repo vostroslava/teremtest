@@ -847,8 +847,18 @@ async function handleContactSubmit(event) {
     }
 }
 
-// Initialize Contact Form Listener
+// Promo Badge Auto-Hide
+function initPromoBadgeNY() {
+    const el = document.getElementById('promoBadgeNY');
+    if (!el) return;
+    const deadline = new Date(2025, 11, 31, 23, 59, 59); // 31 Dec 2025
+    if (new Date() > deadline) el.style.display = 'none';
+}
+
+// Initialize Contact Form Listener & Promo
 document.addEventListener('DOMContentLoaded', function () {
+    initPromoBadgeNY();
+
     const leadForm = document.getElementById('leadForm');
     if (leadForm) {
         // Remove old listeners by cloning (optional but safe) or just adding ours
