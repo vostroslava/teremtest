@@ -607,6 +607,12 @@ h2 {
     box-shadow: 0 0 20px rgba(255, 100, 0, 0.1);
 }
 
+.rat-level:hover {
+    box-shadow: 0 0 20px rgba(148, 163, 184, 0.2);
+    /* Neutral gray/blue glow */
+    border-color: rgba(148, 163, 184, 0.3);
+}
+
 .pro-level:hover {
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
 }
