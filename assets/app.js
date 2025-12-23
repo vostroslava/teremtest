@@ -850,18 +850,26 @@ async function handleContactSubmit(event) {
             <div class="success-next-steps">
                 <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
                 <h3 class="success-title">Заявка отправлена</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-                    Мы свяжемся с вами в ближайший рабочий день и подтвердим участие.
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Мы свяжемся с вами в ближайший рабочий день.
                 </p>
+                
+                <!-- Video Embed -->
+                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 1.5rem; border-radius: 8px; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                        src="https://www.youtube.com/embed/IUf-4WwgSuk" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
                 <div class="success-actions">
-                    <button class="btn-primary" type="button" onclick="closeLeadModal(); openTestModal();">
-                        Открыть мини-тест
-                    </button>
-                    <button class="btn-secondary" type="button" onclick="closeLeadModal()">
-                        Вернуться на страницу
+                    <button class="btn-primary" type="button" onclick="closeLeadModal()">
+                        Вернуться на сайт
                     </button>
                     <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">
-                        (Результат теста подтянется к вашей заявке автоматически)
+                        (Мы также забронировали для вас место)
                     </div>
                 </div>
             </div>
