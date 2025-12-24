@@ -1,6 +1,6 @@
 
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx98vM9pV5oXSrW59ehe5cGlRm9mequGjs9XjKT2-LDzFF2rHsVnYevjOhasRVIAP7-/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYpyOj61Uprd946DeO4KUdPvbNpwLPpSU8jfhzlKOrm6zofhMECjIwTNXb3pZ2Yus62w/exec";
 
 function isValidScriptUrl(url) {
     return typeof url === "string" &&
