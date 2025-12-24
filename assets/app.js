@@ -1,6 +1,6 @@
 
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwnQR15r9C6AwTp_eYY3RV6uNKu7FaYt0xSra776uZS70rifwMxLKpfDyW0Ls85f5EQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx98vM9pV5oXSrW59ehe5cGlRm9mequGjs9XjKT2-LDzFF2rHsVnYevjOhasRVIAP7-/exec";
 
 function isValidScriptUrl(url) {
     return typeof url === "string" &&
@@ -853,8 +853,9 @@ async function handleContactSubmit(event) {
     // Store globally
     window.leadData = {
         name: data.name || '',
+        phone: data.phone || '',
         company: data.company || '',
-        phone: data.phone || ''
+        position: data.position || ''
     };
 
     if (typeof leadData !== 'undefined') {
