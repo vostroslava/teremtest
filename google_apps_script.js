@@ -1,21 +1,25 @@
 /**
  * Google Apps Script для приёма заявок с лендинга «Теремок»
- * 
- * Инструкция:
- * 1. Создайте новую Google Таблицу
- * 2. Откройте Расширения → Apps Script
- * 3. Вставьте этот код
- * 4. Нажмите "Развернуть" → "Новое развертывание"
- * 5. Выберите тип: "Веб-приложение"
- * 6. Настройте: Выполнять от имени: "Я", Доступ: "Все"
- * 7. Скопируйте URL развертывания и вставьте в index.html (SCRIPT_URL)
  */
 
 const SHEET_NAME = 'Лиды';
 
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
+    let data;
+    
+    // Handle both JSON and FormData
+    if (e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (parseError) {
+        // If JSON parsing fails, try to get from parameters
+        data = e.parameter || {};
+      }
+    } else {
+      data = e.parameter || {};
+    }
+    
     const sheet = getOrCreateSheet();
     
     const timestamp = new Date();
@@ -26,6 +30,8 @@ function doPost(e) {
       data.phone || '',
       data.company || '',
       data.position || '',
+      data.test_main_type || '',
+      data.test_main_text || '',
       'Новый'
     ];
     
@@ -54,7 +60,7 @@ function getOrCreateSheet() {
   
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    const headers = ['Дата/время', 'Источник', 'Имя', 'Телефон', 'Компания', 'Должность', 'Статус'];
+    const headers = ['Дата/время', 'Источник', 'Имя', 'Телефон', 'Компания', 'Должность', 'Тест тип', 'Тест текст', 'Статус'];
     sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     sheet.getRange(1, 1, 1, headers.length).setBackground('#4a90d9').setFontColor('#ffffff').setFontWeight('bold');
     sheet.setFrozenRows(1);

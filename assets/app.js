@@ -464,37 +464,35 @@ function getResultHTML(type) {
 
 // Отправка данных в Google Script
 async function sendToGoogleSheet(mainType, types, resultText) {
-    const fd = new FormData();
-
     // Fix: Access global variable set by integration.js if local is null
-    const data = window.leadData || leadData;
+    const data = window.leadData || leadData || {};
 
-    if (data) {
-        fd.append('name', data.name || '');
-        fd.append('company', data.company || '');
-        fd.append('phone', data.phone || '');
-    } else {
-        fd.append('name', '');
-        fd.append('company', '');
-        fd.append('phone', '');
-    }
+    const payload = {
+        name: data.name || '',
+        phone: data.phone || '',
+        company: data.company || '',
+        position: data.position || '',
+        test_main_type: mainType || '',
+        test_main_text: resultText || ''
+    };
 
-    fd.append('test_main_type', mainType || '');
-    fd.append('test_main_text', resultText || '');
-    // Ensure types is object before accessing
+    // Add test scores if available
     const safeTypes = types || {};
-    fd.append('test_ptica', safeTypes.ptica || 0);
-    fd.append('test_homiak', safeTypes.homiak || 0);
-    fd.append('test_lisa', safeTypes.lisa || 0);
-    fd.append('test_profi', safeTypes.profi || 0);
-    fd.append('test_volk', safeTypes.volk || 0);
-    fd.append('test_medved', safeTypes.medved || 0);
-    fd.append('test_krysa', safeTypes.krysa || 0);
+    payload.test_ptica = safeTypes.ptica || 0;
+    payload.test_homiak = safeTypes.homiak || 0;
+    payload.test_lisa = safeTypes.lisa || 0;
+    payload.test_profi = safeTypes.profi || 0;
+    payload.test_volk = safeTypes.volk || 0;
+    payload.test_medved = safeTypes.medved || 0;
+    payload.test_krysa = safeTypes.krysa || 0;
 
     try {
         await fetch(SCRIPT_URL, {
             method: 'POST',
-            body: fd,
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: JSON.stringify(payload),
             mode: 'no-cors'
         });
         // Success (opaque)
