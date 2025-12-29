@@ -132,8 +132,6 @@ function openTestModal() {
     if (telegramBlock) telegramBlock.style.display = 'none';
 
     renderQuestion();
-
-    renderQuestion();
 }
 
 // Закрыть модал теста
@@ -335,7 +333,6 @@ function finishTest() {
     const progressBar = document.getElementById('testProgressBar');
     if (progressBar) progressBar.style.width = '100%';
 
-    // Calculate Result
     // Calculate Result
     const scores = { ptica: 0, homiak: 0, lisa: 0, profi: 0, volk: 0, medved: 0, krysa: 0 };
     Object.values(userAnswers).forEach(val => {
@@ -694,8 +691,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Инициализируем отсчёт до мероприятия
-    initEventCountdown();
+    // (initEventCountdown already invoked at line 608)
 
 
 

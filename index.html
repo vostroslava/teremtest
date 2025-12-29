@@ -1035,69 +1035,6 @@
 
     <!-- Модальные окна для типажей сотрудников -->
 
-
-
-    <!-- Модальное окно с мини-тестом -->
-    <div class="modal-backdrop" id="testModal" aria-hidden="true">
-        <div class="modal-overlay" onclick="closeTestModal()"></div>
-
-        <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="testModalTitle">
-            <button class="modal-close" type="button" onclick="closeTestModal()">×</button>
-
-            <h2 id="testModalTitle">Мини-тест по одному сотруднику</h2>
-            <p class="modal-subtitle">
-                Выберите одного конкретного сотрудника и отвечайте, как он ведёт себя чаще всего.
-                Это упрощённый мини-тест: по результатам вы увидите, к какому типажу «Теремка» он ближе.
-                На офлайн-программе мы работаем уже со всей вашей командой.
-            </p>
-
-            <div id="testContainer">
-                <div class="test-progress">
-                    <div class="test-progress-bar" id="testProgressBar"></div>
-                </div>
-                <div id="testQuestionCard" class="test-question-card">
-                    <!-- Dynamic Question Content will be injected here -->
-                </div>
-            </div>
-
-            <div id="testResultContainer" style="display: none;">
-                <!-- Dynamic Result Content will be injected here -->
-            </div>
-
-            <div id="testTelegramBlock" class="telegram-card" style="display:none; margin-top: 20px;">
-                <div class="telegram-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white">
-                        <path
-                            d="M21.5 4.2c.3-.97-.58-1.84-1.54-1.5L3.3 9.1c-.71.26-.77 1.24-.1 1.6l4.5 2.34 2.1 4.77c.3.68 1.26.71 1.6.05l2.02-3.82 4.24 2.2c.83.43 1.83-.03 2.06-.93l1.78-7.91Z" />
-                    </svg>
-                </div>
-                <div class="telegram-content">
-                    <div class="telegram-title">Посмотрите видео-разбор</div>
-                    <p>Мы подготовили видео, где вы можете ознакомиться с Теремком. Напишите менеджеру слово "Теремок".
-                    </p>
-                    <a class="telegram-button" href="https://t.me/stalkermedia1" target="_blank">Написать менеджеру</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно с политикой конфиденциальности -->
-    <div class="modal-backdrop" id="privacyModal" aria-hidden="true">
-        <div class="modal-overlay" onclick="closePrivacyModal()"></div>
-
-        <div class="modal-window policy-window" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
-            <button class="modal-close" type="button" onclick="closePrivacyModal()">×</button>
-
-            <h2 id="privacyModalTitle">Политика конфиденциальности</h2>
-
-            <iframe class="policy-frame" src="privacy-policy.html" title="Политика конфиденциальности"></iframe>
-        </div>
-    </div>
-
-
-
-    <!-- Модальные окна для типажей сотрудников -->
-
     <!-- Птица -->
     <div class="modal-backdrop" id="modal-bird" aria-hidden="true">
         <div class="modal-overlay" onclick="closeModal('modal-bird')"></div>
@@ -1181,34 +1118,6 @@
                     <li>Присваивает заслуги и подставляет коллег</li>
                 </ul>
 
-            </div>
-
-            <div class="modal-section">
-                <p>Часто из-за одной крысы приходиться менять весь отдел. Если после введения прозрачных правил и
-                    ответственности поведение не меняется — выводить из команды, иначе «Крыса» будет заражать атмосферу
-                    постоянно.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Крыса -->
-    <div class="modal-backdrop" id="modal-rat" aria-hidden="true">
-        <div class="modal-overlay" onclick="closeModal('modal-rat')"></div>
-        <div class="modal-window" role="dialog" aria-modal="true">
-            <button class="modal-close" type="button" onclick="closeModal('modal-rat')">×</button>
-
-            <h2>🐀 Крыса</h2>
-            <p class="modal-subtitle">Движущая сила: скрытое выживание за счёт других</p>
-
-            <div class="modal-section">
-                <h3>Характеристика</h3>
-                <ul class="modal-list">
-                    <li>Действует исподтишка</li>
-                    <li>Стравливает людей и разогревает конфликты</li>
-                    <li>Присваивает заслуги и подставляет коллег</li>
-                </ul>
-                <p>Это внутренний токсик: внешне может быть «нормальным», но регулярно запускает интриги, бьёт по
-                    сильным и размывает доверие в команде.</p>
             </div>
 
             <div class="modal-section">
